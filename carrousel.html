@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memoria Colectiva - Casos Documentados</title>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+            pageLanguage: 'es', 
+            includedLanguages: 'en,es,zh-CN,hi,ar',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+          }, 'google_translate_element');
+        }
+
+        function validarComentario(event) {
+            const comentario = document.getElementById('comentario').value.toLowerCase();
+            const nombre = document.getElementById('nombre').value.toLowerCase();
+            const palabras_prohibidas = [
+                "fascista", "antisemita", "antisionismo", "homofobico", "xenofobo", "puto", "trola", "negro de mierda",
+                "judío de mierda", "dictadura", "nazi", "lunfardo despectivo", "mierda", "carajo", "boludo", "pelotudo"
+            ];
+
+            const textoCompleto = nombre + " " + comentario;
+            let inapropiado = false;
+
+            for (const palabra of palabras_prohibidas) {
+                if (textoCompleto.includes(palabra)) {
+                    inapropiado = true;
+                    break;
+                }
+            }
+
+            if (inapropiado) {
+                alert("Su comentario contiene lenguaje inapropiado, ofensivo o de odio. Por favor, modifíquelo para continuar. El proyecto promueve el respeto y la no discriminación.");
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <style>
+        :root {
+            --color-fondo: #0d1b2a;
+            --color-principal: #1b2d45;
+            --color-acento: #e09f3e;
+            --color-texto: #e0e1dd;
+            --color-borde: #415a77;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: var(--color-principal);
+            padding: 20px 0;
+            border-bottom: 3px solid var(--color-acento);
+        }
+        h1, h2, h3 {
+            color: var(--color-acento);
+            margin-top: 0;
+        }
+        a {
+            color: var(--color-acento);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #ffc878;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            background-color: var(--color-borde);
+            padding: 10px 15px;
+            border-radius: 4px;
+            color: var(--color-texto);
+            text-transform: uppercase;
+        }
+        /* Estilos del Carrusel */
+        .carousel-wrapper {
+            max-width: 800px;
+            height: 450px;
+            overflow: hidden;
+            margin: 40px auto;
+            border: 5px solid var(--color-acento);
+            box-shadow: 0 0 20px rgba(224, 159, 62, 0.5);
+            position: relative;
+        }
+        .carousel-slide {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 1s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            background-color: var(--color-principal);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        .slide img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid var(--color-texto);
+        }
+        .slide h4 {
+            color: var(--color-texto);
+            margin: 5px 0;
+            font-size: 1.5em;
+        }
+        .slide p {
+            color: var(--color-borde);
+            font-size: 1.1em;
+        }
+        /* Video Embed */
+        .video-container {
+            margin: 40px auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: var(--color-principal);
+            border-radius: 8px;
+            border: 1px solid var(--color-borde);
+        }
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .video-citation {
+            font-style: italic;
+            font-size: 0.9em;
+            margin-top: 10px;
+            color: var(--color-borde);
+        }
+        /* Formulario */
+        .form-container {
+            margin: 30px auto;
+            max-width: 600px;
+            background-color: var(--color-fondo);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--color-borde);
+        }
+        .form-container input[type="text"], .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--color-borde);
+            border-radius: 4px;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: var(--color-acento);
+            color: var(--color-fondo);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background-color: #d18d30;
+        }
+        .legend {
+            font-size: 0.8em;
+            color: var(--color-borde);
+            margin-top: 10px;
+            text-align: center;
+        }
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .carousel-wrapper {
+                height: 400px;
+                margin: 20px auto;
+            }
+            .video-container {
+                padding: 10px;
+            }
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CASOS DOCUMENTADOS</h1>
+            <p>Archivando la Memoria para la Justicia Simbólica</p>
+            <div id="google_translate_element"></div>
+        </header>
+
+        <nav>
+            <a href="index.html">Inicio / Manifiesto</a>
+            <a href="carrousel.html">Casos Documentados</a>
+            <a href="colabora.html">Página Colaborativa</a>
+        </nav>
+
+        <h2>Carrousel de Historias (Fuentes OSINT)</h2>
+        <div class="carousel-wrapper">
+            <div class="carousel-slide" id="carouselSlide">
+                <div class="slide">
+                    <img src="ejemplo1.jpg" alt="Imagen de Ejemplo 1">
+                    <h4>Caso: Lucía A.</h4>
+                    <p>Fecha: 2023-08-15 | Víctima: Muerte en Accidente de Tránsito (Atropello). Detalle: El caso fue cerrado por falta de testigos, sin investigación profunda sobre las cámaras de la zona.</p>
+                    <p class="legend">Fuente: Diario 'La Voz del Sur' (Archivo abierto)</p>
+                </div>
+                <div class="slide">
+                    <img src="ejemplo2.jpg" alt="Imagen de Ejemplo 2">
+                    <h4>Caso: Pedro R.</h4>
+                    <p>Fecha: 2024-03-01 | Víctima: Victima de Violencia Institucional. Detalle: Muerte bajo custodia policial por presunta asfixia. Familia denuncia encubrimiento y 'plantado' de evidencia.</p>
+                    <p class="legend">Fuente: Informe de DDHH - ONG local (OSINT)</p>
+                </div>
+                <div class="slide">
+                    <img src="ejemplo3.jpg" alt="Imagen de Ejemplo 3">
+                    <h4>Caso: Elena G.</h4>
+                    <p>Fecha: 2022-11-20 | Víctima: Victima de Homofobia. Detalle: Ataque en la vía pública por su identidad. La fiscalía inicialmente calificó el hecho como 'riña', invisibilizando el móvil de odio.</p>
+                    <p class="legend">Fuente: Redes Sociales y Colectivo LGBTIQ+ (Fuente Abierta)</p>
+                </div>
+                <div class="slide">
+                    <img src="ejemplo4.jpg" alt="Imagen de Ejemplo 4">
+                    <h4>Caso: Familia Gómez</h4>
+                    <p>Fecha: 1980-05-08 | Víctima: Desaparecido en Dictadura. Detalle: Caso de secuestro y desaparición forzada. La familia continúa la búsqueda de los restos y la verdad de lo ocurrido en el Pozo de Banfield.</p>
+                    <p class="legend">Fuente: Archivos Nacionales de la Memoria (Público y Abierto)</p>
+                </div>
+                <div class="slide">
+                    <img src="ejemplo5.jpg" alt="Imagen de Ejemplo 5">
+                    <h4>Caso: Juan P.</h4>
+                    <p>Fecha: 2021-06-05 | Víctima: Mala Praxis Médica. Detalle: Muerte por diagnóstico tardío en hospital público. El caso fue archivado por falta de recursos periciales, dejando dudas sin responder.</p>
+                    <p class="legend">Fuente: Diario 'El Porteño' (Archivo digitalizado)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-container">
+            <h3>Reflexión y Pensamiento Crítico</h3>
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://www.youtube.com/embed/NRtvqT_wMeY" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p class="video-citation">
+                **Referencia APA 7ma Edición (Acordes de la Memoria Colectiva):**
+                <br>
+                Soul AsylumVEVO. (2010, 26 febrero). 
+                *Soul Asylum - Runaway Train (Official HD Video)* [Video]. YouTube. 
+                <a href="http://www.youtube.com/watch?v=NRtvqT_wMeY" target="_blank">http://www.youtube.com/watch?v=NRtvqT_wMeY</a>
+            </p>
+        </div>
+
+        <div class="form-container">
+            <h3>💬 Envía tu Comentario o Caso</h3>
+            <p>Tus reflexiones son importantes para nosotros. Utiliza este espacio para sugerencias o comentarios sobre los casos.</p>
+            <form action="mailto:archivovivox@gmail.com" method="post" enctype="text/plain" onsubmit="return validarComentario(event)">
+                <input type="text" id="nombre" name="nombre" placeholder="Tu Nombre o Alias" required>
+                <textarea id="comentario" name="comentario" placeholder="Tu comentario o sugerencia (Control de comentarios inapropiados activado)" rows="5" required></textarea>
+                <button type="submit" class="btn">Enviar</button>
+            </form>
+            <p class="legend">⚠️ **Aviso Legal:** No se recopilan datos ni se provee a terceros de datos o información personal. El botón **Enviar** solo genera un correo electrónico en su dispositivo.</p>
+        </div>
+
+    </div>
+
+    <script>
+        const carouselSlide = document.getElementById('carouselSlide');
+        const slides = document.querySelectorAll('.slide');
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        // Función de desplazamiento automático (cada 8 a 10 segundos)
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            const offset = -currentIndex * 100;
+            carouselSlide.style.transform = `translateX(${offset}%)`;
+        }
+
+        // Intervalo de desplazamiento automático (8 segundos)
+        setInterval(nextSlide, 8000); 
+    </script>
+</body>
+</html>
