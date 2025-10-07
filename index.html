@@ -3,241 +3,639 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memoria Colectiva Argentina - Manifiesto</title>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script type="text/javascript">
-        // Inicializa el widget de Google Translate con los 5 idiomas más hablados
-        function googleTranslateElementInit() {
-          new google.translate.TranslateElement({
-            pageLanguage: 'es', 
-            includedLanguages: 'en,es,zh-CN,hi,ar', // Inglés, Español, Chino Mandarín, Hindi, Árabe
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-          }, 'google_translate_element');
-        }
-
-        // Script para la moderación de comentarios
-        function validarComentario(event) {
-            const comentario = document.getElementById('comentario').value.toLowerCase();
-            const nombre = document.getElementById('nombre').value.toLowerCase();
-            const palabras_prohibidas = [
-                // Términos solicitados y relacionados para moderación
-                "fascista", "antisemita", "antisionismo", "homofobico", "xenofobo", "puto", "trola", "negro de mierda",
-                "judío de mierda", "dictadura", "nazi", "lunfardo despectivo", "mierda", "carajo", "boludo", "pelotudo"
-            ];
-
-            // Combinar nombre y comentario para una revisión integral
-            const textoCompleto = nombre + " " + comentario;
-            let inapropiado = false;
-
-            for (const palabra of palabras_prohibidas) {
-                if (textoCompleto.includes(palabra)) {
-                    inapropiado = true;
-                    break;
-                }
-            }
-
-            if (inapropiado) {
-                alert("Su comentario contiene lenguaje inapropiado, ofensivo o de odio. Por favor, modifíquelo para continuar. El proyecto promueve el respeto y la no discriminación.");
-                event.preventDefault(); // Detiene el envío del formulario
-                return false;
-            }
-
-            // Si es válido, permite el envío via mailto
-            return true;
-        }
-
-    </script>
+    <title>Memoria Colectiva Argentina</title>
+    <meta name="description" content="Archivo vivo por la justicia simbólica. Documentamos víctimas invisibilizadas de la violencia sistémica en Argentina.">
     <style>
         :root {
-            /* Paleta de colores que invita a la reflexión y el pensamiento crítico */
-            --color-fondo: #0d1b2a; /* Azul muy oscuro/negro */
-            --color-principal: #1b2d45; /* Azul medio oscuro */
-            --color-acento: #e09f3e; /* Naranja/Ámbar (Esperanza/Alerta) */
-            --color-texto: #e0e1dd; /* Blanco roto/Gris claro */
-            --color-borde: #415a77; /* Azul grisáceo */
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --light: #f8f9fa;
+            --dark: #0f0f1a;
+            --gray: #6c757d;
+            --background: #f0f4f8;
         }
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--color-fondo);
-            color: var(--color-texto);
-            line-height: 1.6;
+        
+        * {
             margin: 0;
             padding: 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            background-color: var(--color-principal);
-            padding: 20px 0;
-            border-bottom: 3px solid var(--color-acento);
-        }
-        h1, h2, h3 {
-            color: var(--color-acento);
-            margin-top: 0;
-        }
-        a {
-            color: var(--color-acento);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        a:hover {
-            color: #ffc878;
-        }
-        .section {
-            background-color: var(--color-principal);
-            padding: 30px;
-            margin: 20px 0;
-            border-radius: 8px;
-            text-align: left;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .section p {
-            white-space: pre-wrap; /* Mantiene saltos de línea para la lectura del manifiesto */
-        }
-        .audio-player-container, .form-container {
-            margin: 30px auto;
-            max-width: 600px;
-            background-color: var(--color-fondo);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--color-borde);
-        }
-        .form-container input[type="text"], .form-container textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid var(--color-borde);
-            border-radius: 4px;
-            background-color: var(--color-fondo);
-            color: var(--color-texto);
             box-sizing: border-box;
         }
-        .btn {
-            background-color: var(--color-acento);
-            color: var(--color-fondo);
-            padding: 10px 20px;
-            border: none;
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--background);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .language-selector {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.15);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+        
+        .language-selector select {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 0.5rem;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-            text-transform: uppercase;
-            font-weight: bold;
+        }
+        
+        .nav-links {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.1);
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--accent);
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        
+        header p {
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .page-content {
+            display: none;
+        }
+        
+        .page-content.active {
             display: block;
+        }
+        
+        .section {
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1.4rem;
+            font-size: 1.8rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+        }
+        
+        .section p, .section li {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+        
+        .principles {
+            background: #fff8f8;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .video-section {
+            text-align: center;
+            margin: 2.5rem 0;
+        }
+        
+        .video-section h3 {
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .video-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 56.25%; /* 16:9 */
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            margin-top: 15px;
+            height: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         }
-        .btn:hover {
-            background-color: #d18d30;
+        
+        .apa-ref {
+            font-size: 0.95rem;
+            color: var(--gray);
+            font-style: italic;
+            margin-top: 0.8rem;
         }
-        .legend {
-            font-size: 0.8em;
-            color: var(--color-borde);
-            margin-top: 10px;
+        
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .carousel-slide {
+            display: none;
+            animation: fade 1.2s ease-in-out;
+        }
+        
+        .carousel-slide.active {
+            display: block;
+        }
+        
+        .carousel-item {
+            background: white;
+            min-height: 480px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .carousel-content {
+            padding: 1.8rem;
+            flex-grow: 1;
+        }
+        
+        .carousel-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.4rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+        
+        .privacy-notice {
+            font-size: 0.95rem;
+            color: var(--gray);
+            margin: 1.2rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
             text-align: center;
         }
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
+        
+        .submit-btn {
+            background: var(--accent);
+            color: white;
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
         }
-        nav a {
-            background-color: var(--color-borde);
-            padding: 10px 15px;
-            border-radius: 4px;
-            color: var(--color-texto);
-            text-transform: uppercase;
+        
+        .submit-btn:hover {
+            background: #d0304a;
         }
-        /* Responsiveness (Mobile-First) */
-        @media (max-width: 600px) {
-            .container {
-                padding: 10px;
-            }
-            .section {
-                padding: 15px;
-                margin: 10px 0;
-            }
-            nav {
-                flex-direction: column;
-                gap: 10px;
-            }
-            nav a {
-                width: 100%;
-                box-sizing: border-box;
-            }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @keyframes fade {
+            from { opacity: 0.7; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .nav-links { position: static; margin-bottom: 1rem; }
+            .video-container { padding-top: 56.25%; }
+            .carousel-item img { height: 200px; }
+            .section { padding: 1.5rem; }
+        }
+        
+        @media (max-width: 480px) {
+            header { padding: 1.5rem 1rem; }
+            header h1 { font-size: 1.6rem; }
+            .container { padding: 1rem; }
+            .section { padding: 1.2rem; }
+            .video-container { padding-top: 56.25%; }
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="nav-links">
+            <a href="#" class="active" onclick="showPage('home'); return false;">Inicio</a>
+            <a href="#" onclick="showPage('cases'); return false;">Casos</a>
+            <a href="#" onclick="showPage('collaborate'); return false;">Colaborar</a>
+            <a href="#" onclick="showPage('reference'); return false;">Referencia</a>
+        </div>
+        <div class="language-selector">
+            <select id="languageSelect" onchange="changeLanguage(this.value)">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+                <option value="hi">हिन्दी</option>
+                <option value="ar">العربية</option>
+                <option value="gn">Mbyá Guaraní</option>
+                <option value="slk">Selk’nam</option>
+            </select>
+        </div>
+        <h1>Memoria Colectiva Argentina</h1>
+        <p>Archivo Vivo por la Justicia Simbólica</p>
+    </header>
+    
     <div class="container">
-        <header>
-            <h1>MEMORIA COLECTIVA ARGENTINA 🇦🇷</h1>
-            <p>Archivo Vivo por la Justicia Simbólica</p>
-            <div id="google_translate_element"></div>
-        </header>
-
-        <nav>
-            <a href="index.html">Inicio / Manifiesto</a>
-            <a href="carrousel.html">Casos Documentados</a>
-            <a href="colabora.html">Página Colaborativa</a>
-        </nav>
+        <!-- Página Principal -->
+        <div id="homePage" class="page-content active">
+            <section class="section">
+                <h2>Manifiesto del Proyecto</h2>
+                <p><strong>Fin:</strong> Establecer un espacio de Justicia Simbólica permanente para las víctimas invisibilizadas.</p>
+                <p><strong>Misión:</strong> Documentar, archivar y visibilizar los casos de personas afectadas por la inseguridad y la violencia sistémica en Argentina, garantizando que sus historias perduren.</p>
+                <p><strong>Visión:</strong> Ser el archivo cívico-digital de referencia en Argentina, impulsando el pensamiento crítico y la reflexión social.</p>
+                <p><strong>Valores:</strong> Integridad, Respeto, Anti-Discriminación, Colaboración y Memoria.</p>
+                
+                <div class="principles">
+                    <p><strong>PRINCIPIOS NO NEGOCIABLES</strong><br>
+                    La Memoria Colectiva Argentina nace de la urgencia de nombrar lo innombrable y de visibilizar lo sistemáticamente ignorado. Declaramos que la memoria de las víctimas no será terreno para la disputa política, el discurso de odio, o cualquier forma de discriminación. Nos comprometemos a:<br>
+                    1. <strong>Cero Tolerancia</strong> al contenido fascista, antisemita, antisionista, homofóbico, xenófobo, o de género.<br>
+                    2. <strong>Transparencia Absoluta</strong> en la fuente de la información.<br>
+                    3. <strong>Dignidad Humana</strong> como pilar central de cada relato.<br>
+                    Este es un archivo vivo, una rendición de cuentas moral a la historia. Que la sombra del olvido no vuelva a caer sobre quienes ya han sufrido la peor de las injusticias.</p>
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2>Reproducir Manifiesto (Audio MP3)</h2>
+                <p>La reproducción es a elección del usuario.</p>
+                <audio controls style="width:100%; max-width:600px; margin-top:1rem;">
+                    <source src="manifiesto.mp3" type="audio/mpeg">
+                    Tu navegador no soporta el audio.
+                </audio>
+            </section>
+            
+            <section class="video-section">
+                <h3>Soul Asylum – Runaway Train</h3>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/SQ28Zw1n5OQ" 
+                            title="Soul Asylum - Runaway Train (Official HD Video)"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="apa-ref">Soul Asylum. (1993). <i>Runaway Train</i> [Video]. YouTube. https://www.youtube.com/watch?v=SQ28Zw1n5OQ</p>
+            </section>
+            
+            <section class="contact-form section">
+                <h2>Envía tu Comentario</h2>
+                <p>Tus reflexiones son importantes para nosotros, pero deben cumplir con nuestros valores.</p>
+                <form id="commentForm">
+                    <div class="form-group">
+                        <label for="name">Nombre completo:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Comentario:</label>
+                        <textarea id="comment" name="comment" required></textarea>
+                    </div>
+                    <div class="privacy-notice">
+                        ⚠️ <strong>Aviso Legal:</strong> No se recopilan datos ni se provee a terceros de datos o información personal. El botón <strong>Enviar</strong> solo genera un correo electrónico en su dispositivo.
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar</button>
+                </form>
+            </section>
+        </div>
         
-        <script>
-            console.log("Integración de Métricas Georreferenciadas: Aquí se implementaría un script de terceros (Ej: Google Analytics o similar) para el seguimiento de visitas y geolocalización.");
-        </script>
-
-        <div class="section">
-            <h2>📜 Manifiesto del Proyecto</h2>
-            <p>
-                **Fin:** Establecer un espacio de Justicia Simbólica permanente para las víctimas invisibilizadas.
+        <!-- Página de Casos -->
+        <div id="casesPage" class="page-content">
+            <section class="section">
+                <h2>Archivo de Memoria: Casos Documentados</h2>
+                <p>Casos verificados mediante fuentes abiertas (OSINT) de medios y documentos públicos argentinos.</p>
                 
-                **Misión:** Documentar, archivar y visibilizar los casos de personas afectadas por la inseguridad y la violencia sistémica en Argentina, garantizando que sus historias perduren.
-
-                **Visión:** Ser el archivo cívico-digital de referencia en Argentina, impulsando el pensamiento crítico y la reflexión social.
-
-                **Objetivos:** 1. Mantener un sitio web full responsive. 2. Documentar al menos 500 casos. 3. Garantizar canales de colaboración seguros. 4. Implementar filtros contra el discurso de odio. 5. Adaptar el contenido a 5 idiomas.
-
-                **Valores:** Integridad, Respeto, Anti-Discriminación, Colaboración y Memoria.
-
-                ---
-
-                **PRINCIPIOS NO NEGOCIABLES**
-
-                La Memoria Colectiva Argentina nace de la urgencia de nombrar lo innombrable y de visibilizar lo sistemáticamente ignorado. Declaramos que la memoria de las víctimas no será terreno para la disputa política, el discurso de odio, o cualquier forma de discriminación.
-
-                Nos comprometemos a:
-                1.  **Cero Tolerancia** al contenido fascista, antisemita, antisionista, homofóbico, xenófobo, o de género.
-                2.  **Transparencia Absoluta** en la fuente de la información.
-                3.  **Dignidad Humana** como pilar central de cada relato.
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <div class="carousel-item">
+                            <img src="https://placehold.co/800x250/1a1a2e/white?text=Lucía+Pérez" alt="Lucía Pérez">
+                            <div class="carousel-content">
+                                <h3>Lucía Pérez</h3>
+                                <p><strong>Fecha:</strong> 14/10/2016</p>
+                                <p><strong>Víctima de:</strong> Femicidio</p>
+                                <p>Fuente: Clarín, La Nación – Documentación judicial pública</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="carousel-item">
+                            <img src="https://placehold.co/800x250/e94560/white?text=Fernando+Báez+Sosa" alt="Fernando Báez Sosa">
+                            <div class="carousel-content">
+                                <h3>Fernando Báez Sosa</h3>
+                                <p><strong>Fecha:</strong> 18/01/2020</p>
+                                <p><strong>Víctima de:</strong> Violencia grupal</p>
+                                <p>Fuente: Infobae, Página/12 – Sentencia judicial pública</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="carousel-item">
+                            <img src="https://placehold.co/800x250/16213e/white?text=Rafael+Nahuel" alt="Rafael Nahuel">
+                            <div class="carousel-content">
+                                <h3>Rafael Nahuel</h3>
+                                <p><strong>Fecha:</strong> 25/11/2017</p>
+                                <p><strong>Víctima de:</strong> Violación de derechos indígenas</p>
+                                <p>Fuente: Télam, Página/12 – Documentación judicial</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="carousel-item">
+                            <img src="https://placehold.co/800x250/1a1a2e/white?text=Tren+921" alt="Tren 921">
+                            <div class="carousel-content">
+                                <h3>Tragedia del Tren 921</h3>
+                                <p><strong>Fecha:</strong> 22/02/2012</p>
+                                <p><strong>Víctimas:</strong> 51 fallecidos</p>
+                                <p>Fuente: La Nación, Télam – Informes oficiales</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="carousel-item">
+                            <img src="https://placehold.co/800x250/e94560/white?text=Juan+Duarte" alt="Juan Duarte">
+                            <div class="carousel-content">
+                                <h3>Juan Duarte</h3>
+                                <p><strong>Fecha:</strong> 12/03/2023</p>
+                                <p><strong>Víctima de:</strong> Inseguridad urbana</p>
+                                <p>Fuente: Clarín, Infobae – Reportes policiales públicos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="video-section">
+                <h3>The Irrepressibles – In This Shirt</h3>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/-iNHtdL-zu4" 
+                            title="In This Shirt · The Irrepressibles"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="apa-ref">The Irrepressibles. (2010). <i>In This Shirt</i> [Video]. YouTube. https://youtu.be/-iNHtdL-zu4</p>
+            </section>
+            
+            <section class="contact-form section">
+                <h2>Contribuye con un Caso</h2>
+                <form id="caseForm">
+                    <div class="form-group">
+                        <label for="victimName">Nombre completo de la víctima:</label>
+                        <input type="text" id="victimName" name="victimName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="victimAge">Edad:</label>
+                        <input type="number" id="victimAge" name="victimAge" min="0" max="120" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="incidentType">Tipo de hecho:</label>
+                        <select id="incidentType" name="incidentType" required>
+                            <option value="">Seleccione...</option>
+                            <option value="muerte_accidente_transito">Muerte en accidente de tránsito</option>
+                            <option value="desaparecido_democracia">Desaparecido en Democracia</option>
+                            <option value="desaparecido_dictadura">Desaparecido en Dictadura</option>
+                            <option value="victima_homofobia">Víctima de Homofobia</option>
+                            <option value="victima_xenofobia">Víctima de Xenofobia</option>
+                            <option value="victima_antisemitismo">Víctima de Antisemitismo</option>
+                            <option value="victima_genocidio">Víctima de Genocidio</option>
+                            <option value="victima_lesiones">Víctima de Lesiones</option>
+                            <option value="victima_mala_praxis">Víctima de Mala Praxis Médica</option>
+                            <option value="victima_violencia_institucional">Víctima de Violencia Institucional</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="incidentDate">Fecha del hecho:</label>
+                        <input type="date" id="incidentDate" name="incidentDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="incidentDetail">Detalle del caso:</label>
+                        <textarea id="incidentDetail" name="incidentDetail" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="source">Fuente:</label>
+                        <input type="text" id="source" name="source" required placeholder="Ej: La Nación, sentencia judicial, testimonio">
+                    </div>
+                    <div class="privacy-notice">
+                        ⚠️ No se recopilan datos personales. El envío genera un correo a archivovivox@gmail.com desde tu dispositivo.
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar</button>
+                </form>
+            </section>
+        </div>
+        
+        <!-- Página de Referencia -->
+        <div id="referencePage" class="page-content">
+            <section class="section">
+                <h2>Referencia Conceptual: La Rendición de Breda</h2>
+                <p>Este proyecto se inspira en la reflexión histórica de Arturo Pérez-Reverte sobre los olvidados de la historia: aquellos cuyos nombres no figuran en los cuadros, pero cuyos cuerpos construyeron la memoria colectiva.</p>
                 
-                Este es un archivo vivo, una rendición de cuentas moral a la historia. Que la sombra del olvido no vuelva a caer sobre quienes ya han sufrido la peor de las injusticias.
-            </p>
+                <blockquote style="font-style: italic; margin: 1.5rem 0; padding: 1.5rem; background: #f8f9fa; border-left: 3px solid var(--accent);">
+                    "Fíjense en el cuadro de una maldita vez. Nosotros le dimos nombre y apenas se nos ve. Nos tapan, y no es casualidad, los generales, el caballo y la bandera."
+                </blockquote>
+                
+                <p>Leer el artículo completo en el blog personal de Arturo Pérez-Reverte:</p>
+                <p><a href="https://arturoperez-reverte.blogspot.com/2009/07/la-rendicion-de-breda.html" target="_blank" style="color: var(--accent); text-decoration: underline;">La rendición de Breda – Arturo Pérez-Reverte (30/08/1992)</a></p>
+                
+                <div class="video-section" style="margin-top: 2rem;">
+                    <h3>Video Referencial: La Rendición de Breda</h3>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/NRtvqT_wMeY" 
+                                title="La rendición de Breda"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p class="apa-ref">Pérez-Reverte, A. (2023). <i>La rendición de Breda</i> [Video]. YouTube. https://youtu.be/NRtvqT_wMeY</p>
+                </div>
+            </section>
         </div>
-
-        <div class="audio-player-container">
-            <h3>🔊 Reproducir Manifiesto (Audio MP3)</h3>
-            <audio controls>
-                <source src="manifiesto.mp3" type="audio/mpeg">
-                Tu navegador no soporta el elemento de audio.
-            </audio>
-            <p class="legend">Archivo: manifiesto.mp3. La reproducción es a elección del usuario.</p>
-        </div>
-
-        <div class="form-container">
-            <h3>💬 Envía tu Comentario</h3>
-            <p>Tus reflexiones son importantes para nosotros, pero deben cumplir con nuestros valores.</p>
-            <form action="mailto:archivovivox@gmail.com" method="post" enctype="text/plain" onsubmit="return validarComentario(event)">
-                <input type="text" id="nombre" name="nombre" placeholder="Tu Nombre o Alias" required>
-                <textarea id="comentario" name="comentario" placeholder="Tu comentario o sugerencia (Control de comentarios inapropiados activado)" rows="5" required></textarea>
-                <button type="submit" class="btn">Enviar</button>
-            </form>
-            <p class="legend">⚠️ **Aviso Legal:** No se recopilan datos ni se provee a terceros de datos o información personal. El botón **Enviar** solo genera un correo electrónico en su dispositivo.</p>
+        
+        <!-- Página Colaborar (igual que casos, opcional) -->
+        <div id="collaboratePage" class="page-content">
+            <!-- Redirigir a casosPage -->
         </div>
     </div>
+    
+    <footer>
+        <p>Memoria Colectiva Argentina © 2024</p>
+        <p>Archivo Vivo por la Justicia Simbólica</p>
+    </footer>
+
+    <script>
+        // --- Configuración del carrusel ---
+        let slideIndex = 0;
+        let carouselInterval = null;
+        const slides = document.querySelectorAll('.carousel-slide');
+        
+        function showSlides() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[slideIndex].classList.add('active');
+            slideIndex = (slideIndex + 1) % slides.length;
+        }
+        
+        function startCarousel() {
+            if (carouselInterval) clearInterval(carouselInterval);
+            carouselInterval = setInterval(showSlides, 9000); // 9 segundos
+        }
+        
+        // --- Navegación ---
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            
+            if (pageId === 'collaborate') pageId = 'cases';
+            
+            document.getElementById(pageId + 'Page').classList.add('active');
+            const activeLink = [...document.querySelectorAll('.nav-links a')].find(link => 
+                link.textContent.toLowerCase().includes(pageId === 'home' ? 'inicio' : pageId)
+            );
+            if (activeLink) activeLink.classList.add('active');
+            
+            if (pageId === 'cases') startCarousel();
+            else if (carouselInterval) clearInterval(carouselInterval);
+        }
+        
+        // --- Formularios ---
+        function validateAndSend(form, nameField, commentField, subjectPrefix) {
+            const name = document.getElementById(nameField).value.trim();
+            const comment = document.getElementById(commentField).value.trim().toLowerCase();
+            
+            if (!name || !comment) {
+                alert('Por favor completa todos los campos.');
+                return false;
+            }
+            
+            const badWords = ['puta','facho','nazi','antisemita','homofobico','xenofobo','gorila','racista'];
+            if (badWords.some(word => comment.includes(word))) {
+                alert('Tu mensaje contiene contenido inapropiado.');
+                return false;
+            }
+            
+            const subject = encodeURIComponent(subjectPrefix);
+            const body = encodeURIComponent(`Nombre: ${name}\n\nMensaje: ${document.getElementById(commentField).value}`);
+            window.location.href = `mailto:archivovivox@gmail.com?subject=${subject}&body=${body}`;
+            return false;
+        }
+        
+        document.getElementById('commentForm')?.addEventListener('submit', e => {
+            e.preventDefault();
+            validateAndSend(e.target, 'name', 'comment', 'Comentario - Memoria Colectiva Argentina');
+        });
+        
+        document.getElementById('caseForm')?.addEventListener('submit', e => {
+            e.preventDefault();
+            const victim = document.getElementById('victimName').value.trim();
+            const detail = document.getElementById('incidentDetail').value.trim().toLowerCase();
+            if (!victim || !detail) { alert('Completa todos los campos.'); return false; }
+            
+            const badWords = ['puta','facho','nazi','antisemita','homofobico','xenofobo','gorila','racista'];
+            if (badWords.some(word => detail.includes(word))) {
+                alert('Tu descripción contiene contenido inapropiado.');
+                return false;
+            }
+            
+            let body = `NUEVO CASO\nVíctima: ${victim}\nEdad: ${document.getElementById('victimAge').value}\n`;
+            body += `Tipo: ${document.getElementById('incidentType').options[document.getElementById('incidentType').selectedIndex].text}\n`;
+            body += `Fecha: ${document.getElementById('incidentDate').value}\n`;
+            body += `Detalle: ${document.getElementById('incidentDetail').value}\n`;
+            body += `Fuente: ${document.getElementById('source').value}`;
+            
+            window.location.href = `mailto:archivovivox@gmail.com?subject=${encodeURIComponent('Nuevo Caso - Memoria Colectiva Argentina')}&body=${encodeURIComponent(body)}`;
+        });
+        
+        // --- Inicialización ---
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+        });
+    </script>
 </body>
 </html>
