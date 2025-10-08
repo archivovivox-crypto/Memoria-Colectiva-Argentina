@@ -1,0 +1,26 @@
+# Ignorar archivos generados por el sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos y carpetas temporales/de logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.idea/
+.vscode/
+
+# Ignorar archivos de audio y media que excedan cierto tamaño (opcional, si no son el core del proyecto)
+# NOTA: Si 'manifiesto.mp3' debe ser público, ¡borra las siguientes 3 líneas!
+*.mp3 
+*.wav
+*.mp4
+
+# Ignorar archivos de configuracion de entorno local (si usas variables)
+.env
+.env.local
+
+# Ignorar dependencias (si en el futuro usas NodeJS, npm, etc.)
+/node_modules
+/dist
+/build
